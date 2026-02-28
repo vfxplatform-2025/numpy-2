@@ -19,8 +19,7 @@ build_requires = [
 build_command = "python {root}/rezbuild.py {install}"
 
 def commands():
-    import os
     env.PATH.prepend("{root}/bin")
-    py_ver = os.environ.get("REZ_PYTHON_MAJOR_VERSION", "3")
-    py_minor = os.environ.get("REZ_PYTHON_MINOR_VERSION", "13")
-    env.PYTHONPATH.prepend(f"{{root}}/lib/python{py_ver}.{py_minor}/site-packages")
+    py_pkg = resolve["python"]
+    py_ver = f"{py_pkg.version.major}.{py_pkg.version.minor}"
+    env.PYTHONPATH.prepend(f"{{root}}/lib/python{py_ver}/site-packages")
